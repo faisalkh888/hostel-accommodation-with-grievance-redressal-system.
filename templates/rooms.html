@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Available Rooms{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold text-gray-800 mb-6">Available Rooms</h1>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {% for room in rooms %}
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <img class="h-56 w-full object-cover" src="https://placehold.co/600x400/indigo/white?text=Room+{{room.room_number}}" alt="Room Image">
+        <div class="p-6">
+            <h2 class="font-bold text-2xl mb-2">Room {{ room.room_number }}</h2>
+            <p class="text-gray-700 text-base mb-4">
+                Capacity: {{ room.capacity }} person(s)
+            </p>
+            <p class="text-gray-900 font-bold text-xl mb-4">${{ room.price }} / month</p>
+            {% if not user.is_staff %}
+            <a href="{% url 'room_detail' room.id %}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">Book Now</a>
+            {% endif %}
+        </div>
+    </div>
+    {% empty %}
+    <p>No available rooms at the moment.</p>
+    {% endfor %}
+</div>
+{% endblock %}

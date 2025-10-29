@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block title %}My Profile{% endblock %} {% block content %}
+My Profile
+{{ user.username }}
+{{ user.email }}
+
+Account Information
+Role
+{% if user.is_staff %}Admin{% else %}Student{% endif %}
+Joined On
+{{ user.date_joined|date:"F d, Y" }}
+{% endblock %}
