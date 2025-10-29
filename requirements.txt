@@ -1,0 +1,20 @@
+# requirements.txt
+
+# --- Core Django Framework ---
+django
+
+# --- Production Web Server ---
+# Used to run your live application instead of 'manage.py runserver'
+gunicorn
+
+# --- Static File Handling ---
+# Serves your CSS, JavaScript, and image files efficiently in production
+whitenoise
+
+# --- Database Connector (PostgreSQL) ---
+# Allows Django to communicate with your PostgreSQL database
+psycopg2-binary
+
+# --- Environment Variables ---
+# Manages your secret keys, database URLs, and other settings
+django-environ
