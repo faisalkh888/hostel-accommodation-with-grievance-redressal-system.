@@ -6,9 +6,12 @@ from .models import Room, Booking, Grievance
 from django.http import JsonResponse
 import json
 
+
+@csrf_exempt
 def index(request):
     return render(request, 'index.html')
 
+@csrf_exempt
 def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -19,6 +22,8 @@ def signup(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'signup.html', {'form': form})
+
+@csrf_exempt
 
 @login_required
 def dashboard(request):
@@ -31,16 +36,19 @@ def dashboard(request):
         bookings = Booking.objects.filter(student=request.user)
         grievances = Grievance.objects.filter(student=request.user).order_by('-created_at')
         return render(request, 'dashboard.html', {'bookings': bookings, 'grievances': grievances})
-    
+
+@csrf_exempt
 @login_required
 def profile(request):
     return render(request, 'profile.html')
 
+@csrf_exempt
 @login_required
 def rooms(request):
     rooms = Room.objects.filter(is_available=True)
     return render(request, 'rooms.html', {'rooms': rooms})
 
+@csrf_exempt
 @login_required
 def room_detail(request, room_id):
     room = get_object_or_404(Room, id=room_id)
@@ -58,6 +66,7 @@ def room_detail(request, room_id):
         form = BookingForm()
     return render(request, 'room_detail.html', {'room': room, 'form': form})
 
+@csrf_exempt
 @login_required
 def grievances(request):
     if request.user.is_staff:
@@ -66,6 +75,7 @@ def grievances(request):
         grievances = Grievance.objects.filter(student=request.user).order_by('-created_at')
     return render(request, 'grievances.html', {'grievances': grievances})
 
+@csrf_exempt
 @login_required
 def create_grievance(request):
     if request.method == 'POST':
@@ -81,11 +91,13 @@ def create_grievance(request):
         form = GrievanceForm()
     return render(request, 'grievance_create.html', {'form': form})
 
+@csrf_exempt
 @login_required
 def get_grievance_status(request, grievance_id):
     grievance = get_object_or_404(Grievance, id=grievance_id)
     return JsonResponse({'status': grievance.status})
 
+@csrf_exempt
 @login_required
 def update_grievance_status(request, grievance_id):
     if not request.user.is_staff:
