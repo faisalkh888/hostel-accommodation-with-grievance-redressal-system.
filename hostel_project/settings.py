@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'hostel',
 ]
-
+CSRF_TRUSTED_ORIGINS = [
+    'https://hostel-accommodation-with-grievance.onrender.com'
+]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
